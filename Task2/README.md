@@ -3,10 +3,10 @@
 
 ## Beskrivelse av TV-Maze Database tabeller. Antagelse er at det er en Relasjons Database.
 
--- add Image
+
 ![Drag Racing](./resources/Database-table-connection.png)
 
-
+Her ser vi tilkobling mellom Show, Network, Image og Externals tabeller. Vi ser hvordan ting henger sammen og hvilke type verdier de har bassert på informasjon som vi får ved å se på respons fra TV-Maze api.
 ## Eksempler for å hente ut informasjon fra flere  tabeller samtidig:
     1. Bruk inner join for å hente ut informasjon som bare finnes i begger tabeller. 
         - Eksempel: (SELECT Show.id, Show.name, image.medium AS image, Network.name AS network
