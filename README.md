@@ -6,8 +6,8 @@ This is a small project to access the public api, and to secure my own endpoints
 - [Requirements](#requirements)
 - [Getting Started](#getting-started)
 - [How to use](#how-to-use)
-- [Part 1: src Folder](#part-1-src-folder)
-- [Part 2: Task2 Folder](#part-2-task2-folder)
+- [Part 1: src directory](#part-1-src-directory)
+- [Part 2: Task2 directory](#part-2-task2-directory)
 - [Swagger](#swagger)
 
 ## Requirements
