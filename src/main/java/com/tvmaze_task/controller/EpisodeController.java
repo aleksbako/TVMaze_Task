@@ -44,7 +44,7 @@ public class EpisodeController {
             description = "Given a showId , fetch 5 most highly rated episodes for a given series and present them as a string to the user.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = ListEpisodesDTO.class), mediaType = "application/json")}),
-            @ApiResponse(responseCode = "400", content = {@Content(schema = @Schema())}, description = "Bad Request! show_id provided is <= 0. Please provide positive value for show_id."),
+            @ApiResponse(responseCode = "400", content = {@Content(schema = @Schema())}, description = "Bad Request! showId provided is <= 0. Please provide positive value for showId."),
             @ApiResponse(responseCode = "401", content = {@Content(schema = @Schema())}, description = "Unauthorized! Provide apikey to access this endpoint."),
             @ApiResponse(responseCode = "403", content = {@Content(schema = @Schema())}, description = "Forbidden! Denied access to this endpoint with the provided apikey."),
             @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())}, description = "Internal error occurred while processing request.")
@@ -52,7 +52,7 @@ public class EpisodeController {
     )
     public ResponseEntity<ListEpisodesDTO> GetTopFiveEpisodesForShow(@Parameter(description = "The id of the show fetched from TV Maze.") @PathVariable long showId) {
         if (showId <= 0) {
-            LOGGER.error("Invalid show_id: {}", showId);
+            LOGGER.error("Invalid showId: {}", showId);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ListEpisodesDTO(new ArrayList<>()));
         }
 
