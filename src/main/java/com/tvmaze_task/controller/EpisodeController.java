@@ -39,7 +39,7 @@ public class EpisodeController {
     }
 
     @GetMapping("/top/{show_id}")
-    @RateLimited()
+    @RateLimited(key = "episode", interval = 20L)
     @Operation(summary = "Fetch top 5 episodes for a given show entity",
             description = "Given a show_id , fetch 5 most highly rated episodes for a given series and present them as a string to the user.")
     @ApiResponses(value = {
