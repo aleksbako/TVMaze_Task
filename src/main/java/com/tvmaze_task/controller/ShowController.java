@@ -31,7 +31,7 @@ public class ShowController {
     }
 
     @GetMapping("/SortByGenre")
-    @RateLimited(key = "example", interval = 20L)
+    @RateLimited(key = "shows", interval = 20L)
     @Operation(summary = "Fetch first page of pagination of shows sorted by Genre",
             description = "Fetch first page of pagination of shows from the TV Maze api and return the data sorted by Genre.")
     @ApiResponses(value = {
