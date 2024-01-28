@@ -4,15 +4,18 @@ import com.tvmaze_task.dto.EpisodeDTO;
 import com.tvmaze_task.dto.ListEpisodesDTO;
 import com.tvmaze_task.mapper.EpisodeMapper;
 import com.tvmaze_task.model.Episode;
+import com.tvmaze_task.model.Show;
 import com.tvmaze_task.repository.abstraction.IEpisodeRepository;
 import com.tvmaze_task.service.abstraction.IEpisodeService;
 import com.tvmaze_task.validation.ValidateEpisode;
+import com.tvmaze_task.validation.ValidateShow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EpisodeService implements IEpisodeService {
@@ -38,8 +41,9 @@ public class EpisodeService implements IEpisodeService {
 
         boolean DataIsValid = ValidateEpisode.isListValid(episodes);
 
+
         if(!DataIsValid){
-            return null;
+            episodes = filterInvalidEpisodes(episodes);
         }
 
         episodes.sort(Comparator.comparingDouble((Episode episode) -> episode.getRating().getAverage()).reversed());
@@ -54,5 +58,11 @@ public class EpisodeService implements IEpisodeService {
         ListEpisodesDTO listEpisodesDTO = new ListEpisodesDTO(episodeDtos);
 
         return listEpisodesDTO;
+    }
+
+    private List<Episode> filterInvalidEpisodes(List<Episode> episodes) {
+        return episodes.stream()
+                .filter(episode -> ValidateEpisode.isValid(episode))
+                .collect(Collectors.toList());
     }
 }
