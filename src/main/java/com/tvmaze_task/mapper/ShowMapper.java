@@ -5,7 +5,7 @@ import com.tvmaze_task.model.Show;
 
 public class ShowMapper {
 
-    public static ShowDTO toShowDTO(Show show){
+    public static ShowDTO toShowDTO(Show show) {
         ShowDTO showDto = new ShowDTO();
         showDto.setId(show.getId());
         showDto.setUrl(show.getUrl());

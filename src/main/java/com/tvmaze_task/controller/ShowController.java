@@ -35,17 +35,17 @@ public class ShowController {
     @Operation(summary = "Fetch first page of pagination of shows sorted by Genre",
             description = "Fetch first page of pagination of shows from the TV Maze api and return the data sorted by Genre.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = ListShowsDTO.class), mediaType = "application/json") }),
-            @ApiResponse(responseCode = "401", content = { @Content(schema = @Schema()) },description = "Unauthorized! Provide apikey to access this endpoint."),
-            @ApiResponse(responseCode = "403", content = { @Content(schema = @Schema()) },description = "Forbidden! Denied access to this endpoint with the provided apikey."),
-            @ApiResponse(responseCode = "429", content = { @Content(schema = @Schema()) },description = "Too many requests made in a short period of time."),
-            @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) },description = "Internal error occurred while processing request.")
+            @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = ListShowsDTO.class), mediaType = "application/json")}),
+            @ApiResponse(responseCode = "401", content = {@Content(schema = @Schema())}, description = "Unauthorized! Provide apikey to access this endpoint."),
+            @ApiResponse(responseCode = "403", content = {@Content(schema = @Schema())}, description = "Forbidden! Denied access to this endpoint with the provided apikey."),
+            @ApiResponse(responseCode = "429", content = {@Content(schema = @Schema())}, description = "Too many requests made in a short period of time."),
+            @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())}, description = "Internal error occurred while processing request.")
     }
     )
     public ResponseEntity<ListShowsDTO> GetTopShowsByGenre() {
 
         ListShowsDTO result = showService.FetchAllShowsSortByGenre();
-        if(result == null){
+        if (result == null) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ListShowsDTO(new ArrayList<>()));
         }
 

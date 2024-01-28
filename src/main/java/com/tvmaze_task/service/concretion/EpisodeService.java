@@ -23,11 +23,13 @@ public class EpisodeService implements IEpisodeService {
     private IEpisodeRepository episodeRepository;
 
     @Autowired
-    public EpisodeService(IEpisodeRepository episodeRepository){
+    public EpisodeService(IEpisodeRepository episodeRepository) {
         this.episodeRepository = episodeRepository;
     }
+
     /**
      * Fetch top 5 episodes from a given show.
+     *
      * @param id the id of the show
      * @return a list of at most 5 episodes in order of highest rated to lowest.
      */
@@ -35,14 +37,14 @@ public class EpisodeService implements IEpisodeService {
     public ListEpisodesDTO FetchTopFiveEpisodesInShowSummary(long id) {
         List<Episode> episodes = episodeRepository.FetchTopFiveEpisodesInShow(id).block();
 
-        if(episodes == null){
+        if (episodes == null) {
             return new ListEpisodesDTO(new ArrayList<>()); // Value does not exist.
         }
 
         boolean DataIsValid = ValidateEpisode.isListValid(episodes);
 
 
-        if(!DataIsValid){
+        if (!DataIsValid) {
             episodes = filterInvalidEpisodes(episodes);
         }
 
@@ -52,7 +54,7 @@ public class EpisodeService implements IEpisodeService {
         List<Episode> topFiveEpisodes = episodes.subList(0, limit);
         List<EpisodeDTO> episodeDtos = new ArrayList<>();
 
-        for(Episode e : topFiveEpisodes){
+        for (Episode e : topFiveEpisodes) {
             episodeDtos.add(EpisodeMapper.toEpisodeDTO(e));
         }
         ListEpisodesDTO listEpisodesDTO = new ListEpisodesDTO(episodeDtos);
@@ -61,8 +63,6 @@ public class EpisodeService implements IEpisodeService {
     }
 
     private List<Episode> filterInvalidEpisodes(List<Episode> episodes) {
-        return episodes.stream()
-                .filter(episode -> ValidateEpisode.isValid(episode))
-                .collect(Collectors.toList());
+        return episodes.stream().filter(episode -> ValidateEpisode.isValid(episode)).collect(Collectors.toList());
     }
 }

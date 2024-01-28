@@ -56,6 +56,4 @@ public class EpisodeDTO {
     private String summary;
 
 
-
-
 }

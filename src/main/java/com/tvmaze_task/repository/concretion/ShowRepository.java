@@ -12,8 +12,8 @@ import java.util.List;
 @Repository
 public class ShowRepository implements IShowRepository {
 
-
     private final WebClient webClient;
+
     @Autowired
     public ShowRepository(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder.baseUrl("https://api.tvmaze.com").build();
@@ -21,16 +21,15 @@ public class ShowRepository implements IShowRepository {
 
     /**
      * Fetch all the shows. The api returns the first page of shows which is up to 250 elements.
+     *
      * @return a list of Shows.
      */
-    public Mono<List<Show>> FetchAllShows(){
+    public Mono<List<Show>> FetchAllShows() {
         return webClient.get()
                 .uri("/shows")
                 .retrieve()
                 .bodyToFlux(Show.class)
                 .collectList();
-
-
     }
 
 }

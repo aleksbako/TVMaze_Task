@@ -4,7 +4,7 @@ import com.tvmaze_task.dto.EpisodeDTO;
 import com.tvmaze_task.model.Episode;
 
 public class EpisodeMapper {
-    public static EpisodeDTO toEpisodeDTO(Episode episode){
+    public static EpisodeDTO toEpisodeDTO(Episode episode) {
         EpisodeDTO episodeDto = new EpisodeDTO();
         episodeDto.setId(episode.getId());
         episodeDto.setUrl(episode.getUrl());

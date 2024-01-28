@@ -9,6 +9,7 @@ import nonapi.io.github.classgraph.json.Id;
 import org.hibernate.validator.constraints.URL;
 
 import java.util.List;
+
 @AllArgsConstructor
 @Getter
 public class Show {
@@ -67,7 +68,8 @@ public class Show {
     @JsonProperty("links")
     private Links links;
 
-    public static class DvdCountry {}
+    public static class DvdCountry {
+    }
 
     public static class Externals {
         private int tvrage;

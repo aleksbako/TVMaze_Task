@@ -19,30 +19,31 @@ import java.util.stream.Collectors;
 public class ShowService implements IShowService {
 
     private IShowRepository showRepository;
+
     @Autowired
     public ShowService(IShowRepository showRepository) {
         this.showRepository = showRepository;
     }
 
     @Override
-    public ListShowsDTO FetchAllShowsSortByGenre(){
+    public ListShowsDTO FetchAllShowsSortByGenre() {
 
         List<Show> shows = showRepository.FetchAllShows().block();
-        if(shows == null){
+        if (shows == null) {
             return new ListShowsDTO(new ArrayList<>()); // Value does not exist.
         }
 
         //Remove data which has empty genre lists.
 
         boolean DataIsValid = ValidateShow.isListValid(shows);
-        if(!DataIsValid){
+        if (!DataIsValid) {
             shows = filterInvalidShows(shows);
         }
 
         shows.sort(Comparator.comparing(show -> String.join(",", show.getGenres())));
 
         List<ShowDTO> showDtos = new ArrayList<>();
-        for(Show show : shows){
+        for (Show show : shows) {
             showDtos.add(ShowMapper.toShowDTO(show));
         }
 
@@ -50,6 +51,7 @@ public class ShowService implements IShowService {
 
         return listShowsDTO;
     }
+
     private List<Show> filterInvalidShows(List<Show> shows) {
         return shows.stream()
                 .filter(show -> ValidateShow.isValid(show))

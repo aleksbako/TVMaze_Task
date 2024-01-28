@@ -10,29 +10,27 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.context.annotation.Configuration;
 
 
-
 @Configuration
-@OpenAPIDefinition (
+@OpenAPIDefinition(
         info = @Info(
                 contact = @Contact(
-                        name="Aleks Bako",
-                        email="aleksbako@outlook.com"
+                        name = "Aleks Bako",
+                        email = "aleksbako@outlook.com"
                 ),
                 description = "This is a task for Payex.",
                 title = "OpenAPI for this application."
-
-
         ),
         security = @SecurityRequirement(
                 name = "Authorization"
         )
 )
 @SecurityScheme(
-        name="Authorization",
+        name = "Authorization",
         description = "Add authentication by using api key",
         scheme = "bearer",
         type = SecuritySchemeType.HTTP,
         bearerFormat = "apikey",
         in = SecuritySchemeIn.HEADER
 )
-public class SwaggerConfig {}
+public class SwaggerConfig {
+}

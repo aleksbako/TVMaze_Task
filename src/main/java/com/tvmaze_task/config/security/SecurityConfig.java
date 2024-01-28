@@ -12,7 +12,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig{
+public class SecurityConfig {
 
     @Autowired
     private ApiKeyAuthFilter apiKeyAuthFilter;
@@ -21,7 +21,7 @@ public class SecurityConfig{
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/episode/top/**","/shows/**").permitAll() //Would change to authenticated when using login
+                        .requestMatchers("/episode/top/**", "/shows/**").permitAll() //Would change to authenticated when using login
                         .anyRequest().permitAll()
                 )
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

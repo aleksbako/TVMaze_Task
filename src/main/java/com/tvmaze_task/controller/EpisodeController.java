@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/episode")
-@SecurityRequirement(name="Authorization")
+@SecurityRequirement(name = "Authorization")
 @Tag(name = "Episode", description = "This is the Episode api where you get to perform operation on Episode entities.")
 public class EpisodeController {
     private static final Logger LOGGER = LoggerFactory.getLogger(EpisodeController.class);
@@ -38,28 +38,27 @@ public class EpisodeController {
         this.episodeService = episodeService;
     }
 
-    @GetMapping("/top/{show_id}")
+    @GetMapping("/top/{showId}")
     @RateLimited(key = "episode", interval = 20L)
     @Operation(summary = "Fetch top 5 episodes for a given show entity",
-            description = "Given a show_id , fetch 5 most highly rated episodes for a given series and present them as a string to the user.")
+            description = "Given a showId , fetch 5 most highly rated episodes for a given series and present them as a string to the user.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = ListEpisodesDTO.class), mediaType = "application/json") }),
-            @ApiResponse(responseCode = "400", content = { @Content(schema = @Schema()) },description = "Bad Request! show_id provided is <= 0. Please provide positive value for show_id."),
-            @ApiResponse(responseCode = "401", content = { @Content(schema = @Schema()) },description = "Unauthorized! Provide apikey to access this endpoint."),
-            @ApiResponse(responseCode = "403", content = { @Content(schema = @Schema()) },description = "Forbidden! Denied access to this endpoint with the provided apikey."),
-            @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) },description = "Internal error occurred while processing request.")
+            @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = ListEpisodesDTO.class), mediaType = "application/json")}),
+            @ApiResponse(responseCode = "400", content = {@Content(schema = @Schema())}, description = "Bad Request! show_id provided is <= 0. Please provide positive value for show_id."),
+            @ApiResponse(responseCode = "401", content = {@Content(schema = @Schema())}, description = "Unauthorized! Provide apikey to access this endpoint."),
+            @ApiResponse(responseCode = "403", content = {@Content(schema = @Schema())}, description = "Forbidden! Denied access to this endpoint with the provided apikey."),
+            @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())}, description = "Internal error occurred while processing request.")
     }
     )
-    public ResponseEntity<ListEpisodesDTO>  GetTopFiveEpisodesForShow(@Parameter(description = "The id of the show fetched from TV Maze.") @PathVariable long show_id) {
-
-        if (show_id <= 0) {
-            LOGGER.error("Invalid show_id: {}", show_id);
+    public ResponseEntity<ListEpisodesDTO> GetTopFiveEpisodesForShow(@Parameter(description = "The id of the show fetched from TV Maze.") @PathVariable long showId) {
+        if (showId <= 0) {
+            LOGGER.error("Invalid show_id: {}", showId);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ListEpisodesDTO(new ArrayList<>()));
         }
 
-        ListEpisodesDTO result = episodeService.FetchTopFiveEpisodesInShowSummary(show_id);
+        ListEpisodesDTO result = episodeService.FetchTopFiveEpisodesInShowSummary(showId);
 
-        if(result == null){
+        if (result == null) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ListEpisodesDTO(new ArrayList<>()));
         }
 

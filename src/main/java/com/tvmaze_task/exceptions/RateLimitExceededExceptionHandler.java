@@ -15,22 +15,12 @@ import java.util.UUID;
 public class RateLimitExceededExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(RateLimitExceededException.class)
-    public ResponseEntity<?> RateLimitExceededException(
-            final RateLimitExceededException e, final HttpServletRequest request) {
+    public ResponseEntity<?> RateLimitExceededException(final RateLimitExceededException e, final HttpServletRequest request) {
 
         var guid = UUID.randomUUID().toString();
         log.error("GUID: " + guid + " - " + e.getMessage(), e);
 
-        var response = new ApiErrorResponse(
-                guid,
-                e.getErrorCode(),
-                e.getMessage(),
-                e.getHttpStatus().value(),
-                e.getHttpStatus().name(),
-                request.getRequestURI(),
-                request.getMethod(),
-                LocalDateTime.now()
-        );
+        var response = new ApiErrorResponse(guid, e.getErrorCode(), e.getMessage(), e.getHttpStatus().value(), e.getHttpStatus().name(), request.getRequestURI(), request.getMethod(), LocalDateTime.now());
 
         return new ResponseEntity<>(response, e.getHttpStatus());
     }

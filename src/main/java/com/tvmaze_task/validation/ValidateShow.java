@@ -38,8 +38,7 @@ public class ValidateShow {
     }
 
 
-
-    public static boolean isListValid(List<Show> shows){
+    public static boolean isListValid(List<Show> shows) {
         for (Show show : shows) {
             if (!ValidateShow.isValid(show)) {
                 return false;

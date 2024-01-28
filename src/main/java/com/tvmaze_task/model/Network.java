@@ -7,7 +7,7 @@ import nonapi.io.github.classgraph.json.Id;
 
 @Getter
 @Setter
-public  class Network {
+public class Network {
     @Id
     @JsonProperty("id")
     private int id;

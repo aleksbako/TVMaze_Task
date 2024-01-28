@@ -15,12 +15,15 @@ import java.util.List;
 public class EpisodeRepository implements IEpisodeRepository {
     private final WebClient webClient;
     private static final Logger LOGGER = LoggerFactory.getLogger(EpisodeRepository.class);
+
     @Autowired
     public EpisodeRepository(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder.baseUrl("https://api.tvmaze.com").build();
     }
+
     /**
      * Fetch top 5 episodes from a given show.
+     *
      * @param id the id of the show
      * @return a list of at most 5 episodes in order of highest rated to lowest.
      */

@@ -22,23 +22,20 @@ public class ApiKeyAuthFilter extends OncePerRequestFilter {
 
         // Get the API key and secret from request headers
         String authorizationHeader = request.getHeader("Authorization");
-        if(requiresAuthorization(request)) {
+        if (requiresAuthorization(request)) {
 
             // Validate the key and secret
             if (isValidApiKey(authorizationHeader)) {
                 // Continue processing the request
                 filterChain.doFilter(request, response);
-            }
-            else if(authorizationHeader != null ){
+            } else if (authorizationHeader != null) {
                 response.setStatus(HttpStatus.FORBIDDEN.value());
                 response.getWriter().write("403: Forbidden Access.");
-            }
-            else {
+            } else {
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 response.getWriter().write("401: Unauthorized Access");
             }
-        }
-        else{
+        } else {
             filterChain.doFilter(request, response);
         }
     }
@@ -46,7 +43,7 @@ public class ApiKeyAuthFilter extends OncePerRequestFilter {
     private boolean requiresAuthorization(HttpServletRequest request) {
         // Implement logic to determine if the request requires authorization
         String path = request.getRequestURI();
-        return (path.startsWith("/episode/") || path.startsWith("/show/")) ; // Adjust this based on your requirements
+        return (path.startsWith("/episode/") || path.startsWith("/show/")); // Adjust this based on your requirements
     }
 
     private boolean isValidApiKey(String authorizationHeader) {

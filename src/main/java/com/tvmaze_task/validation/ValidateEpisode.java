@@ -35,7 +35,7 @@ public class ValidateEpisode {
         return true;
     }
 
-    public static boolean isListValid(List<Episode> episodes){
+    public static boolean isListValid(List<Episode> episodes) {
         for (Episode episode : episodes) {
             if (!ValidateEpisode.isValid(episode)) {
                 return false;

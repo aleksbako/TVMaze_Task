@@ -6,5 +6,5 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 
 public interface IShowRepository {
-     Mono<List<Show>> FetchAllShows();
+    Mono<List<Show>> FetchAllShows();
 }

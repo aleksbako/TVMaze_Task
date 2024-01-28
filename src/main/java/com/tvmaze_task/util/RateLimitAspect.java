@@ -16,6 +16,7 @@ public class RateLimitAspect {
 
     /**
      * Simple rate limit checker which checks that the interval of requests does not exceed the TV Maze api's rate limit.
+     *
      * @param rateLimited rateLimited is the annotation which contains the information of the previous time this was called.
      */
     @Before("@annotation(rateLimited)")
@@ -27,7 +28,7 @@ public class RateLimitAspect {
         long lastRequestTime = requestTimestamps.getOrDefault(key, 0L);
 
         if (now - lastRequestTime < allowedInterval) {
-            throw new RateLimitExceededException("429","Too many requests are made to this endpoint.",HttpStatus.TOO_MANY_REQUESTS);
+            throw new RateLimitExceededException("429", "Too many requests are made to this endpoint.", HttpStatus.TOO_MANY_REQUESTS);
         }
 
         requestTimestamps.put(key, now);
